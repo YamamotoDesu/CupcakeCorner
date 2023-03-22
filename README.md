@@ -115,3 +115,33 @@ struct ContentView: View {
 }
 ```
 
+### [Validating and disabling forms](https://www.hackingwithswift.com/books/ios-swiftui/validating-and-disabling-forms)
+
+<img width="300" alt="スクリーンショット 2023-03-22 17 39 50" src="https://user-images.githubusercontent.com/47273077/226846928-33b63c77-3f13-4688-af57-1881acbe6149.png">
+
+```swift
+struct ContentView: View {
+    @State private var username = ""
+    @State private var email = ""
+    
+    var body: some View {
+        Form {
+            Section {
+                TextField("username", text: $username)
+                TextField("Email", text: $email)
+            }
+            
+            Section {
+                Button("Create account") {
+                    print("Creating account_")
+                }
+            }
+            .disabled(disableForm)
+        }
+    }
+
+    var disableForm: Bool {
+        username.count < 5 || email.count < 5
+    }
+}
+```
