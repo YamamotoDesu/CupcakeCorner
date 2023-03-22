@@ -91,3 +91,27 @@ struct ContentView: View {
             
     }
 ```
+
+<img width="300" alt="スクリーンショット 2023-03-22 16 47 31" src="https://user-images.githubusercontent.com/47273077/226840141-a7037d30-be1c-4292-b6e9-bf268e04f269.gif">
+
+```swift
+struct ContentView: View {
+    
+    var body: some View {
+        AsyncImage(url: URL(string: "https://hws.dev/img/bad.png")) { phase in
+            if let image = phase.image {
+                image
+                    .resizable()
+                    .scaledToFit()
+            } else if phase.error != nil {
+                Text("There was an error loading the image")
+            } else {
+                ProgressView()
+            }
+        }
+        .frame(width: 200, height: 200)
+    }
+     
+}
+```
+
