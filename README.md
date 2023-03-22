@@ -71,3 +71,23 @@ struct ContentView: View {
     }
 }
 ```
+
+### [Loading an image from a remote server](https://www.hackingwithswift.com/books/ios-swiftui/loading-an-image-from-a-remote-server)
+
+<img width="300" alt="スクリーンショット 2023-03-22 16 47 31" src="https://user-images.githubusercontent.com/47273077/226838521-7643a7e6-1279-4325-bb2a-a5c9c9b67ef0.gif">
+
+```swift
+struct ContentView: View {
+    
+    var body: some View {
+        AsyncImage(url: URL(string: "http://hws.dev/img/logo.png")) { image in
+            image
+                .resizable()
+                .scaledToFit()
+        } placeholder: {
+            ProgressView()
+        }
+        .frame(width: 200, height: 200)
+            
+    }
+```
