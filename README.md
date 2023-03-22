@@ -21,7 +21,7 @@ class User: ObservableObject, Codable {
 }
 ```
 
-## [Codable data with URLSession and SwiftUI]
+## [Codable data with URLSession and SwiftUI](https://www.hackingwithswift.com/books/ios-swiftui/sending-and-receiving-codable-data-with-urlsession-and-swiftui)
 <img width="300" alt="スクリーンショット 2023-03-22 16 47 31" src="https://user-images.githubusercontent.com/47273077/226834631-0cf9eb6f-ef2e-4e84-8402-497e330b1f61.png">
 
 ```swift
