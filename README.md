@@ -145,3 +145,5 @@ struct ContentView: View {
     }
 }
 ```
+
+## [Taking basic order details](https://www.hackingwithswift.com/books/ios-swiftui/taking-basic-order-details)
