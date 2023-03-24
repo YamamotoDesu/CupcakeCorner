@@ -211,3 +211,78 @@ struct ContentView: View {
     }
 }
 ```
+
+## [Checking for a valid address](https://www.hackingwithswift.com/books/ios-swiftui/checking-for-a-valid-address)
+
+<img width="300" alt="スクリーンショット 2023-03-25 6 56 46" src="https://user-images.githubusercontent.com/47273077/227651766-82cf4f35-5a24-4cbe-9fe9-5c409a3069bd.gif">
+
+```swift
+struct AddressView: View {
+    @ObservedObject var order: Order
+    
+    var body: some View {
+        Form {
+            Section {
+                TextField("Name", text: $order.name)
+                TextField("Street address", text: $order.streetAddress)
+                TextField("City", text: $order.city)
+                TextField("Zip", text: $order.zip)
+            }
+            
+            Section {
+                NavigationLink {
+                    CheckoutView(order: order)
+                } label: {
+                    Text("Check out")
+                }
+            }
+            .disabled(order.hasValidAddress == false)
+        }
+        .navigationTitle("Delivey details")
+        .navigationBarTitleDisplayMode(.inline)
+    }
+}
+
+struct AddressView_Previews: PreviewProvider {
+    static var previews: some View {
+        NavigationView {
+            AddressView(order: Order())
+        }
+    }
+}
+
+```
+
+Order.swift
+```swift
+class Order: ObservableObject {
+    static let types = ["Vanilla", "Strawberry", "Chocolate", "Rainbow"]
+    
+    @Published var type = 0
+    @Published var quantity = 3
+    
+    @Published var specialRequestEnabled = false {
+        didSet {
+            if specialRequestEnabled == false {
+                extraFrosting = false
+                addSprinkles = false
+            }
+        }
+    }
+    @Published var extraFrosting = false
+    @Published var addSprinkles = false
+    
+    @Published var name = ""
+    @Published var streetAddress = ""
+    @Published var city = ""
+    @Published var zip = ""
+    
+    var hasValidAddress: Bool {
+        if name.isEmpty || streetAddress.isEmpty || city.isEmpty || zip.isEmpty {
+            return false
+        }
+        
+        return true
+    }
+}
+```
