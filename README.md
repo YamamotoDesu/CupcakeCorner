@@ -147,3 +147,67 @@ struct ContentView: View {
 ```
 
 ## [Taking basic order details](https://www.hackingwithswift.com/books/ios-swiftui/taking-basic-order-details)
+
+<img width="300" alt="スクリーンショット 2023-03-24 21 40 43" src="https://user-images.githubusercontent.com/47273077/227523878-8b3e28da-cafc-4e0d-bf13-645671e04855.png">
+
+Order.swift
+```swift
+class Order: ObservableObject {
+    static let types = ["Vanilla", "Strawberry", "Chocolate", "Rainbow"]
+    
+    @Published var type = 0
+    @Published var quantity = 3
+    
+    @Published var specialRequestEnabled = false {
+        didSet {
+            if specialRequestEnabled == false {
+                extraFrosting = false
+                addSprinkles = false
+            }
+        }
+    }
+    @Published var extraFrosting = false
+    @Published var addSprinkles = false
+}
+```
+
+ContentView.swift
+```swift
+struct ContentView: View {
+    @StateObject var order = Order()
+    
+    var body: some View {
+        NavigationView {
+            Form {
+                Section {
+                    Picker("Select your cake type", selection: $order.type) {
+                        ForEach(Order.types.indices) {
+                            Text(Order.types[$0])
+                        }
+                    }
+                    
+                    Stepper("Number of cakes \(order.quantity)", value: $order.quantity, in: 3...20)
+                }
+                
+                Section {
+                    Toggle("Any special requests?", isOn: $order.specialRequestEnabled.animation())
+                    
+                    if order.specialRequestEnabled {
+                        Toggle("Add extra frosting", isOn: $order.extraFrosting)
+                        Toggle("Add extra springkles", isOn: $order.addSprinkles)
+                    }
+                }
+                
+                Section {
+                    NavigationLink {
+                        AddressView(order: order)
+                    } label: {
+                        Text("Delivery details")
+                    }
+                }
+            }
+            .navigationTitle("Cupcake Corner")
+        }
+    }
+}
+```
