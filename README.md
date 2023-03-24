@@ -286,3 +286,65 @@ class Order: ObservableObject {
     }
 }
 ```
+
+## [Preparing for checkout](https://www.hackingwithswift.com/books/ios-swiftui/preparing-for-checkout)
+<img width="300" alt="スクリーンショット 2023-03-25 6 56 46" src="https://user-images.githubusercontent.com/47273077/227655405-84cf615a-4cb9-4bdc-b634-1c3968f7fc57.gif">
+
+CheckoutView.swift
+```swift
+struct CheckoutView: View {
+    @ObservedObject var order: Order
+    
+    var body: some View {
+        ScrollView {
+            VStack {
+                AsyncImage(url: URL(string: "https://hws.dev/img/cupcakes@3x.jpg"), scale: 3) { image in
+                    image
+                        .resizable()
+                        .scaledToFit()
+                } placeholder: {
+                    ProgressView()
+                }
+                .frame(height: 233)
+                
+                Text("Your total is \(order.cost, format: .currency(code: "USD"))")
+                    .font(.title)
+                
+                Button("Place Order", action: {})
+                    .padding()
+            }
+        }
+        .navigationTitle("Check out")
+        .navigationBarTitleDisplayMode(.inline)
+    }
+}
+
+struct CheckoutView_Previews: PreviewProvider {
+    static var previews: some View {
+        NavigationView {
+            CheckoutView(order: Order())
+        }
+    }
+}
+```
+
+Order.swift
+```swift
+ var cost: Double {
+        var cost = Double(quantity) * 2
+        
+        cost += (Double(type) / 2)
+        
+        if extraFrosting {
+            cost += Double(quantity)
+        }
+        
+        if addSprinkles {
+            cost += Double(quantity) / 2
+        }
+        
+        return cost
+    }
+```
+
+
