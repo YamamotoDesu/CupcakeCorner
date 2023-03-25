@@ -62,8 +62,8 @@
 				7B4B3B0D29CDB9080052A56D /* Order.swift */,
 				7B4B3B0F29CDCF6D0052A56D /* AddressView.swift */,
 				7BCFBADD29C873A50009ABA0 /* Assets.xcassets */,
-				7BCFBADF29C873A50009ABA0 /* Preview Content */,
 				7B4B3B1329CE4E110052A56D /* CheckoutView.swift */,
+				7BCFBADF29C873A50009ABA0 /* Preview Content */,
 			);
 			path = CupcakeCorner;
 			sourceTree = "<group>";
